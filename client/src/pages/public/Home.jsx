@@ -95,7 +95,7 @@ export default function Home() {
           <p>
             A technology-enabled ecosystem connecting citizens, universities,
             researchers, industries and government to build practical solutions
-            for Jharkhand.
+            for .
           </p>
 
           <div className="hero-actions">
