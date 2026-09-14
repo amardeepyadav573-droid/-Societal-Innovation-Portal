@@ -1,0 +1,47 @@
+.profile-field {
+  display: grid;
+  gap: 5px;
+
+  min-width: 0;
+
+  padding: 13px 14px;
+
+  border: 1px solid
+    var(--border, var(--border));
+
+  border-radius: 12px;
+
+  background:
+    var(--surface, var(--surface));
+}
+
+.profile-field-full {
+  grid-column: 1 / -1;
+}
+
+.profile-field-label {
+  color:
+    var(--muted, var(--muted));
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.profile-field-value {
+  color:
+    var(--text, var(--text));
+
+  font-size: 14px;
+  font-weight: 600;
+
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .profile-field-full {
+    grid-column: auto;
+  }
+}

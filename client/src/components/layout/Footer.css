@@ -1,0 +1,582 @@
+/* =========================================================
+   SOCIETAL INNOVATION PORTAL
+   HACKINDIA STYLE FOOTER
+
+   Total Height: 500px
+========================================================= */
+
+.si-footer {
+  width: 100%;
+  height: 500px;
+  min-height: 500px;
+  max-height: 500px;
+
+  background: #121d28;
+  color: #d5dce3;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN FOOTER CONTAINER
+========================================================= */
+
+.si-footer-container {
+  width: min(1250px, 90%);
+
+  height: 410px;
+
+  margin: 0 auto;
+
+  padding: 52px 0 35px;
+
+  display: grid;
+
+  grid-template-columns:
+    1.65fr
+    1fr
+    1fr
+    1fr;
+
+  column-gap: 65px;
+
+  align-items: start;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BRAND SECTION
+========================================================= */
+
+.si-footer-brand {
+  min-width: 0;
+}
+
+.si-footer-logo-link {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  width: fit-content;
+
+  margin-bottom: 10px;
+
+  text-decoration: none;
+}
+
+.si-footer-logo {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ff6b1a;
+
+  color: var(--surface);
+
+  font-size: 20px;
+  font-weight: 900;
+
+  border-radius: 2px;
+
+  line-height: 1;
+}
+
+.si-footer-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.si-footer-brand-name {
+  color: rgba(255, 68, 0, 0.853);
+
+  font-size: 21px;
+  font-weight: 800;
+
+  letter-spacing: -0.3px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TAGLINE
+========================================================= */
+
+.si-footer-tagline {
+  width: 100%;
+  max-width: 330px;
+
+  margin: 0 0 15px;
+
+  color: #c0c9d2;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.si-footer-contact {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 15px;
+}
+
+.si-contact-item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #c8d0d8;
+
+  font-size: 12.5px;
+}
+
+.si-contact-item svg {
+  flex-shrink: 0;
+
+  color: #ff6b1a;
+}
+
+
+/* =========================================================
+   SOCIAL ICONS
+========================================================= */
+
+.si-footer-socials {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+.si-social {
+  width: 26px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #bfc8d1;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  border-radius: 4px;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.si-social:hover {
+  color: var(--surface);
+
+  background: #ff6b1a;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   FOOTER COLUMNS
+========================================================= */
+
+.si-footer-column {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 11px;
+
+  min-width: 0;
+}
+
+.si-footer-column h3 {
+  margin: 0 0 10px;
+
+  color: #ff6b1a;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+
+  line-height: 1.4;
+}
+
+.si-footer-column a {
+  display: block;
+
+  color: #d1d8df;
+
+  text-decoration: none;
+
+  font-size: 13.5px;
+
+  line-height: 1.35;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.si-footer-column a:hover {
+  color: #ff6b1a;
+
+  transform: translateX(3px);
+}
+
+
+/* =========================================================
+   BOTTOM SECTION
+========================================================= */
+
+.si-footer-bottom {
+  width: 100%;
+
+  height: 90px;
+  min-height: 90px;
+
+  box-sizing: border-box;
+}
+
+.si-footer-bottom-container {
+  width: min(1250px, 90%);
+
+  height: 90px;
+
+  margin: 0 auto;
+
+  border-top: 1px solid #2b3742;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+.si-footer-copyright {
+  color: #8995a0;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   LEGAL LINKS
+========================================================= */
+
+.si-footer-legal {
+  display: flex;
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 22px;
+}
+
+.si-footer-legal a {
+  color: #aab4bd;
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+
+  transition: color 0.2s ease;
+}
+
+.si-footer-legal a:hover {
+  color: #ff6b1a;
+}
+
+.si-footer-secure {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  color: #8995a0;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.si-footer-secure svg {
+  color: #ff6b1a;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1400px) {
+
+  .si-footer-container,
+  .si-footer-bottom-container {
+    width: 1250px;
+  }
+
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .si-footer-container {
+    width: 92%;
+
+    column-gap: 35px;
+
+    grid-template-columns:
+      1.5fr
+      1fr
+      1fr
+      1fr;
+  }
+
+  .si-footer-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.si-footer-brand-name {
+    font-size: 18px;
+  }
+
+  .si-footer-tagline {
+    max-width: 280px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .si-footer-container {
+    width: 90%;
+
+    column-gap: 25px;
+
+    grid-template-columns:
+      1.5fr
+      1fr
+      1fr;
+  }
+
+  .si-footer-column:last-child {
+    display: none;
+  }
+
+  .si-footer-bottom-container {
+    width: 90%;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .si-footer {
+    height: 500px;
+    min-height: 500px;
+    max-height: 500px;
+  }
+
+  .si-footer-container {
+    width: 88%;
+
+    height: 410px;
+
+    padding: 30px 0 20px;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 28px 30px;
+
+    overflow-y: auto;
+  }
+
+  .si-footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .si-footer-tagline {
+    max-width: 100%;
+  }
+
+  .si-footer-column:last-child {
+    display: flex;
+  }
+
+  .si-footer-bottom {
+    height: 90px;
+    min-height: 90px;
+  }
+
+  .si-footer-bottom-container {
+    width: 88%;
+
+    height: 90px;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    text-align: center;
+  }
+
+  .si-footer-legal {
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px 16px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .si-footer-container {
+    width: 88%;
+
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+
+    padding-top: 25px;
+  }
+
+  .si-footer-brand {
+    grid-column: auto;
+
+    text-align: center;
+  }
+
+  .si-footer-logo-link {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .si-footer-tagline {
+    font-size: 12px;
+  }
+
+  .si-footer-contact {
+    align-items: center;
+  }
+
+  .si-footer-socials {
+    justify-content: center;
+  }
+
+  .si-footer-column {
+    align-items: center;
+
+    text-align: center;
+  }
+
+  .si-footer-column a:hover {
+    transform: none;
+  }
+
+  .si-footer-copyright {
+    font-size: 10.5px;
+  }
+
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.si-footer-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.si-footer-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.si-footer-container::-webkit-scrollbar-thumb {
+  background: #34414d;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.si-footer a:focus-visible {
+  outline: 2px solid #ff6b1a;
+
+  outline-offset: 3px;
+
+  border-radius: 3px;
+}

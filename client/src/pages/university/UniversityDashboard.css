@@ -1,0 +1,341 @@
+/* =========================================================
+   UNIVERSITY DASHBOARD
+   Full-width + responsive layout
+   ========================================================= */
+
+.university-dashboard {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 28px 32px !important;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.university-dashboard * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.university-hero-content {
+  width: 100%;
+  max-width: 760px;
+}
+
+.university-hero-content h1 {
+  max-width: 100%;
+}
+
+.university-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.university-profile-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.university-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+}
+
+.university-dashboard .request-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+}
+
+.university-dashboard .request-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 18px;
+  border: 1px solid rgba(100, 116, 139, 0.14);
+  border-radius: 14px;
+}
+
+.university-dashboard .request-info {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.university-dashboard .request-info strong {
+  display: block;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.university-dashboard .request-info span {
+  display: block;
+  margin-top: 4px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.university-dashboard .request-info p {
+  margin: 7px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  opacity: 0.72;
+  overflow-wrap: anywhere;
+}
+
+.university-dashboard .request-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.university-dashboard .muted-text {
+  display: block;
+  padding: 18px 0;
+  opacity: 0.65;
+}
+
+/* Lifecycle */
+.university-dashboard .lifecycle-list {
+  display: grid;
+  gap: 18px;
+  width: 100%;
+}
+
+.university-dashboard .lifecycle-item {
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+
+.university-dashboard .lifecycle-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.university-dashboard .lifecycle-heading strong,
+.university-dashboard .lifecycle-heading span {
+  display: block;
+}
+
+.university-dashboard .lifecycle-heading span {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.university-dashboard .lifecycle-heading b {
+  font-size: 20px;
+}
+
+.university-dashboard .lifecycle-track {
+  height: 7px;
+  background: var(--border);
+  border-radius: 999px;
+  margin: 12px 0 16px;
+  overflow: hidden;
+}
+
+.university-dashboard .lifecycle-track span {
+  display: block;
+  height: 100%;
+  background: #4f46e5;
+  border-radius: 999px;
+}
+
+.university-dashboard .lifecycle-steps {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(60px, 1fr));
+  gap: 6px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 3px;
+}
+
+.university-dashboard .lifecycle-steps span {
+  font-size: 9px;
+  color: #94a3b8;
+  display: grid;
+  gap: 5px;
+  min-width: 65px;
+}
+
+.university-dashboard .lifecycle-steps i {
+  font-style: normal;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--border);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.university-dashboard .lifecycle-steps span.done i,
+.university-dashboard .lifecycle-steps span.current i {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.university-dashboard .lifecycle-steps span.current {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* Prevent grids/cards from pushing main dashboard */
+.university-dashboard .dashboard-grid,
+.university-dashboard .stats-grid,
+.university-dashboard .content-grid,
+.university-dashboard .dashboard-card {
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1100px) {
+  .university-dashboard {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .university-dashboard {
+    padding: 22px 20px;
+  }
+
+  .university-header-actions {
+    justify-content: flex-start;
+  }
+
+  .university-dashboard .request-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .university-dashboard .request-actions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .university-dashboard {
+    padding: 18px 14px !important;
+  }
+
+  .university-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .university-header-actions > * {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .university-dashboard .request-actions {
+    flex-direction: column;
+  }
+
+  .university-dashboard .request-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .university-dashboard .lifecycle-heading {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .university-dashboard .lifecycle-steps {
+    grid-template-columns: repeat(8, 65px);
+  }
+}
+
+/* =========================================================
+   RECENT CHALLENGES
+   Status ke neeche Accepted By text
+   ========================================================= */
+
+.challenge-row,
+.recent-challenge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Right-side section */
+.challenge-status,
+.challenge-assignee,
+.challenge-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  max-width: 220px;
+  min-width: 180px;
+}
+
+/* In Progress badge */
+.challenge-status-badge,
+.status-badge {
+  order: 1;
+}
+
+/* Accepted by */
+.challenge-assigned-by,
+.accepted-by,
+.assignee-name {
+  order: 2;
+  width: 100%;
+  text-align: right;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .challenge-row,
+  .recent-challenge-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .challenge-status,
+  .challenge-assignee,
+  .challenge-actions {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .challenge-assigned-by,
+  .accepted-by,
+  .assignee-name {
+    text-align: left;
+  }
+}

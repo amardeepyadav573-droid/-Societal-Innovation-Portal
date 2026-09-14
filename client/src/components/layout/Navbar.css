@@ -1,0 +1,182 @@
+/* Dashboard navbar. Global design tokens and button primitives remain in index.css. */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  width: 100%;
+  height: 68px;
+  padding: 0 22px 0 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-left,
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.navbar-left {
+  gap: 10px;
+}
+
+.navbar-actions {
+  gap: 10px;
+}
+
+/* Always visible: this is the desktop sidebar toggle as well as the mobile menu button. */
+.navbar .mobile-menu {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.navbar .mobile-menu:hover {
+  background: var(--surface-2);
+}
+
+.navbar .brand {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .brand-text {
+  min-width: 0;
+}
+
+.navbar .icon-button,
+.navbar .notification-button {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.navbar .icon-button:hover,
+.navbar .notification-button:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.notification-count {
+  position: absolute;
+  right: -6px;
+  top: -7px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #dc2626;
+  color: var(--surface);
+  border: 2px solid var(--surface);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.navbar .profile-mini {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 4px 5px 4px 8px;
+  cursor: pointer;
+}
+
+.navbar .profile-mini > div:last-child {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+}
+
+.navbar .profile-mini strong,
+.navbar .profile-mini span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar .profile-mini strong {
+  font-size: 12px;
+}
+
+.navbar .profile-mini span {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.navbar .avatar {
+  flex: 0 0 34px;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 16px 0 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    height: 64px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .navbar .mobile-menu {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar .brand-text {
+    display: none;
+  }
+
+  .navbar-actions {
+    gap: 6px;
+  }
+
+  .navbar .profile-mini > div:last-child {
+    display: none;
+  }
+}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:inherit}

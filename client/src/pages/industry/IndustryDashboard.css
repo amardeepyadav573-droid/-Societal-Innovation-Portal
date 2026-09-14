@@ -1,0 +1,168 @@
+/* =========================================================
+   INDUSTRY DASHBOARD
+   Full-width + responsive layout
+   ========================================================= */
+
+.industry-dashboard {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 28px 32px !important;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.industry-dashboard * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.industry-hero-content {
+  width: 100%;
+  max-width: 760px;
+}
+
+.industry-hero-content h1 {
+  max-width: 100%;
+}
+
+.industry-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.industry-profile-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.industry-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.industry-error span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Challenge table must scroll inside dashboard, never the whole page */
+.industry-dashboard .challenge-table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.industry-dashboard .challenge-row {
+  min-width: 620px;
+}
+
+.industry-dashboard .dashboard-opportunity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+}
+
+.industry-dashboard .opportunity-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(100, 116, 139, 0.1);
+}
+
+.industry-dashboard .opportunity-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.industry-dashboard .opportunity-content h2 {
+  margin: 4px 0 6px;
+  overflow-wrap: anywhere;
+}
+
+.industry-dashboard .opportunity-content p {
+  margin: 0;
+  opacity: 0.72;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.industry-dashboard .dashboard-opportunity > .btn {
+  flex-shrink: 0;
+}
+
+/* Prevent internal grids/cards from overflowing */
+.industry-dashboard .dashboard-grid,
+.industry-dashboard .stats-grid,
+.industry-dashboard .content-grid,
+.industry-dashboard .dashboard-card {
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1100px) {
+  .industry-dashboard {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .industry-dashboard {
+    padding: 22px 20px;
+  }
+
+  .industry-header-actions {
+    justify-content: flex-start;
+  }
+
+  .industry-dashboard .dashboard-opportunity {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .industry-dashboard .dashboard-opportunity > .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .industry-dashboard {
+    padding: 18px 14px !important;
+  }
+
+  .industry-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .industry-header-actions > * {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .industry-dashboard .dashboard-opportunity {
+    flex-direction: column;
+  }
+
+  .industry-dashboard .opportunity-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+  }
+}

@@ -1,0 +1,37 @@
+.university-profile-page {
+  width: 100%;
+}
+
+.organization-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 24px;
+}
+
+.organization-profile-header h1 {
+  margin: 8px 0;
+}
+
+.organization-profile-header p {
+  max-width: 760px;
+  margin: 0;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.university-profile-page
+  .profile-card {
+  background: var(
+    --surface,
+    var(--surface)
+  );
+}
+
+@media (max-width: 700px) {
+  .organization-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

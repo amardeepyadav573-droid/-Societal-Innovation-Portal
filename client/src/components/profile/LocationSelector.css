@@ -1,0 +1,38 @@
+.location-selector {
+  width: 100%;
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.location-full-width {
+  grid-column: 1 / -1;
+}
+
+.location-error {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  font-size: 13px;
+  background: rgba(
+    220,
+    38,
+    38,
+    0.08
+  );
+  color: #b91c1c;
+}
+
+@media (max-width: 700px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .location-full-width {
+    grid-column: auto;
+  }
+}

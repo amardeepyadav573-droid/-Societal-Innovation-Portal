@@ -1,0 +1,57 @@
+services:
+  - type: web
+    name: societal-innovation-portal-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLIENT_URL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_SECURE
+        value: "false"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: AI_PROVIDER
+        value: gemini
+      - key: AI_MODEL
+        value: gemini-3.6-flash
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_TIMEOUT_MS
+        value: 30000
+      - key: MONGO_MAX_POOL_SIZE
+        value: 50
+      - key: MONGO_MIN_POOL_SIZE
+        value: 5
+      - key: MONGO_SERVER_SELECTION_TIMEOUT_MS
+        value: 10000
+      - key: MONGO_CONNECT_TIMEOUT_MS
+        value: 10000
+      - key: MONGO_SOCKET_TIMEOUT_MS
+        value: 45000

@@ -1,0 +1,469 @@
+/* === SIP workflow additions === */
+.dashboard-refresh,
+.icon-text-btn,
+.milestone-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #dbe4ec;
+  background: var(--surface);
+  color: #164d7b;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.dashboard-refresh:disabled,
+.icon-text-btn:disabled,
+.milestone-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.dashboard-header-actions,
+.header-actions,
+.problem-actions,
+.opportunity-actions,
+.table-actions,
+.request-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dashboard-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  background: var(--danger-soft);
+  color: #a32929;
+  border: 1px solid #ffd1d1;
+  margin: 16px 0;
+}
+.dashboard-error button {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.live-indicator {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #14835b;
+}
+.problem-assignment {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #48627a;
+  margin: 10px 0;
+}
+.problem-progress {
+  margin: 12px 0;
+}
+.problem-progress > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #657a90;
+  margin-bottom: 6px;
+}
+.progress-track {
+  height: 7px;
+  background: #edf2f5;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-track > span {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  border-radius: inherit;
+  transition: width 0.25s;
+}
+.problem-actions {
+  padding-top: 10px;
+}
+.btn-small {
+  padding: 8px 11px !important;
+  font-size: 12px;
+}
+.challenge-filters {
+  display: grid;
+  grid-template-columns: auto repeat(3, minmax(170px, 1fr));
+  align-items: end;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.challenge-filters .form-field {
+  margin: 0;
+}
+.data-table td small {
+  display: block;
+  color: #7890a5;
+  margin-top: 4px;
+}
+.table-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+.table-progress > span {
+  display: block;
+  height: 6px;
+  flex: 1;
+  background: var(--primary);
+  border-radius: 99px;
+}
+.inline-select {
+  border: 1px solid #dbe4ec;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 7px 9px;
+  color: #29445b;
+  max-width: 180px;
+}
+.icon-text-btn {
+  padding: 7px 9px;
+  font-size: 12px;
+}
+.icon-text-btn.danger {
+  color: #b33b3b;
+}
+.muted-text {
+  color: #7b8c9b;
+  font-size: 13px;
+}
+.organization-form-box {
+  border: 1px solid #dfe8ef;
+  border-radius: 14px;
+  padding: 18px;
+  background: #f8fbfd;
+  display: grid;
+  gap: 12px;
+}
+.organization-form-box h3 {
+  margin: 0 0 4px;
+}
+.settings-form {
+  display: grid;
+  gap: 14px;
+}
+.notification-row {
+  display: grid;
+  gap: 5px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e7edf2;
+}
+.notification-row:last-child {
+  border-bottom: 0;
+}
+.notification-row span {
+  color: #586f84;
+}
+.notification-row small {
+  color: #8b9aaa;
+}
+.success-inline {
+  padding: 13px 16px;
+  background: #ecfbf4;
+  color: #16734d;
+  border: 1px solid #ccefe0;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.request-list {
+  display: grid;
+  gap: 10px;
+}
+.request-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid #e5edf2;
+  border-radius: 12px;
+}
+.request-row > div:first-child {
+  display: grid;
+  gap: 3px;
+}
+.request-row span,
+.request-row p {
+  margin: 0;
+  color: #708396;
+  font-size: 13px;
+}
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+}
+.real-bar-chart {
+  height: 240px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 20px 8px 4px;
+}
+.real-bar-item {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+.real-bar {
+  width: min(30px, 70%);
+  background: var(--primary);
+  border-radius: 7px 7px 2px 2px;
+  min-height: 8px;
+}
+.real-bar-item span {
+  font-size: 10px;
+  color: #788b9c;
+}
+.real-bar-item b {
+  font-size: 11px;
+}
+.outcome-stack {
+  display: grid;
+  gap: 10px;
+}
+.outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.outcome-grid > div {
+  border: 1px solid #e7edf2;
+  border-radius: 10px;
+  padding: 14px;
+  display: grid;
+  gap: 4px;
+}
+.outcome-grid strong {
+  font-size: 22px;
+}
+.outcome-grid span {
+  font-size: 12px;
+  color: #718499;
+}
+.opportunity-project {
+  display: grid;
+  gap: 3px;
+  padding: 11px;
+  border-radius: 10px;
+  background: #f5f9fb;
+  margin: 12px 0;
+}
+.opportunity-project span {
+  font-size: 12px;
+  color: #6c8192;
+}
+.collaboration-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.collaboration-progress .progress-track {
+  flex: 1;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 25, 40, 0.42);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 100;
+}
+.modal-card {
+  width: min(620px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+  display: grid;
+  gap: 13px;
+}
+.modal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-heading h2 {
+  margin: 0;
+}
+.modal-heading button {
+  border: 0;
+  background: #f3f6f8;
+  border-radius: 9px;
+  padding: 7px;
+  cursor: pointer;
+}
+.milestone-actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 8px;
+}
+.timeline-content {
+  width: 100%;
+}
+.progress-large {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+.progress-large strong {
+  font-size: 34px;
+}
+.project-detail-hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+.detail-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: #718397;
+  font-size: 13px;
+  margin-top: 12px;
+}
+.project-score {
+  min-width: 150px;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  background: #f2f8fb;
+  border-radius: 18px;
+}
+.project-score strong {
+  font-size: 42px;
+  color: #123f68;
+}
+.project-score span {
+  font-size: 12px;
+  color: #748899;
+}
+.team-mini {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 0;
+  color: #5f7487;
+}
+.proposal-list {
+  display: grid;
+  gap: 12px;
+}
+.proposal-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.proposal-main {
+  flex: 1;
+  min-width: 220px;
+}
+.proposal-main h3 {
+  margin: 7px 0;
+}
+.proposal-main p {
+  margin: 0;
+  color: #6e8294;
+}
+.proposal-status {
+  font-size: 12px;
+  font-weight: 800;
+}
+.team-card,
+.opportunity-card,
+.collaboration-card,
+.project-card {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.team-card:hover,
+.opportunity-card:hover,
+.collaboration-card:hover,
+.project-card:hover {
+  transform: translateY(-2px);
+}
+@media (max-width: 900px) {
+  .analytics-grid,
+  .challenge-filters {
+    grid-template-columns: 1fr;
+  }
+  .project-detail-hero {
+    flex-direction: column;
+  }
+  .project-score {
+    min-height: 120px;
+  }
+  .request-row {
+    flex-direction: column;
+  }
+  .request-actions {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .real-bar-chart {
+    gap: 4px;
+  }
+  .dashboard-header-actions,
+  .header-actions {
+    width: 100%;
+  }
+  .dashboard-header-actions > * {
+    flex: 1;
+  }
+  .problem-actions .btn {
+    flex: 1;
+  }
+  .outcome-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* University assigned-challenge states */
+.dashboard-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.dashboard-error strong {
+  flex-basis: 100%;
+}
+.dashboard-error span {
+  flex: 1 1 320px;
+}
+.dashboard-refresh:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.spin {
+  animation: sip-spin 0.8s linear infinite;
+}
+@keyframes sip-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
