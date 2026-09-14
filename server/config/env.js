@@ -43,31 +43,28 @@ export default {
     process.env.STORAGE_PROVIDER || "mongodb",
   ).toLowerCase(),
 
-  smtp: {
-    host: String(process.env.SMTP_HOST || "").trim(),
+smtp: {
+  host: process.env.SMTP_HOST || "",
+  port: Number(process.env.SMTP_PORT) || 587,
 
-    port: smtpPort,
+  secure:
+    String(process.env.SMTP_SECURE || "").toLowerCase() === "true",
 
-    secure:
-      String(process.env.SMTP_SECURE || "").toLowerCase() === "true",
+  family: Number(process.env.SMTP_FAMILY) || 4,
 
-    user: String(process.env.SMTP_USER || "").trim(),
+  user: process.env.SMTP_USER || "",
+  pass: process.env.SMTP_PASS || "",
+  from: process.env.SMTP_FROM || "",
 
-    pass: String(process.env.SMTP_PASS || "").trim(),
+  connectionTimeout:
+    Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) || 20000,
 
-    from:
-      String(process.env.SMTP_FROM || "").trim() ||
-      String(process.env.SMTP_USER || "").trim(),
+  greetingTimeout:
+    Number(process.env.SMTP_GREETING_TIMEOUT_MS) || 20000,
 
-    connectionTimeout:
-      Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) || 30000,
-
-    greetingTimeout:
-      Number(process.env.SMTP_GREETING_TIMEOUT_MS) || 30000,
-
-    socketTimeout:
-      Number(process.env.SMTP_SOCKET_TIMEOUT_MS) || 30000,
-  },
+  socketTimeout:
+    Number(process.env.SMTP_SOCKET_TIMEOUT_MS) || 30000,
+},
 
   ai: {
     provider: String(
