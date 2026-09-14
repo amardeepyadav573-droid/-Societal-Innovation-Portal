@@ -1,15 +1,40 @@
+import nodemailer from "nodemailer";
 import env from "../config/env.js";
 
-const RESEND_API_URL = "https://api.resend.com/emails";
+let transporter = null;
+
+if (
+  env.smtp.host &&
+  env.smtp.port &&
+  env.smtp.user &&
+  env.smtp.pass
+) {
+  transporter = nodemailer.createTransport({
+    host: env.smtp.host,
+    port: Number(env.smtp.port),
+    secure: Boolean(env.smtp.secure),
+
+    auth: {
+      user: env.smtp.user,
+      pass: env.smtp.pass,
+    },
+
+    connectionTimeout: Number(env.smtp.connectionTimeout) || 30000,
+    greetingTimeout: Number(env.smtp.greetingTimeout) || 30000,
+    socketTimeout: Number(env.smtp.socketTimeout) || 30000,
+
+    pool: true,
+    maxConnections: 3,
+    maxMessages: 100,
+  });
+}
 
 export const verifyEmailTransport = async () => {
-  if (!env.resend.apiKey) {
-    if (env.isProduction) {
-      throw new Error("Resend API is not configured.");
-    }
-
-    return false;
+  if (!transporter) {
+    throw new Error("SMTP is not configured.");
   }
+
+  await transporter.verify();
 
   return true;
 };
@@ -20,13 +45,8 @@ export const sendVerificationOtp = async ({
   name = "User",
   purpose = "REGISTRATION",
 }) => {
-  if (!env.resend.apiKey) {
-    if (env.isProduction) {
-      throw new Error("Resend API is not configured.");
-    }
-
-    console.warn(`[DEV OTP] ${email}: ${otp}`);
-    return;
+  if (!transporter) {
+    throw new Error("SMTP is not configured.");
   }
 
   const isPasswordReset = purpose === "PASSWORD_RESET";
@@ -35,92 +55,89 @@ export const sendVerificationOtp = async ({
     ? "Societal Innovation Portal - Password Reset OTP"
     : "Societal Innovation Portal - Email Verification OTP";
 
-  const message = isPasswordReset
+  const introText = isPasswordReset
     ? "Use the following OTP to reset your Societal Innovation account password:"
     : "Use the following OTP to verify your email:";
 
-  const html = `
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px">
-      <h2>Societal Innovation</h2>
-
-      <p>Hello ${name},</p>
-
-      <p>${message}</p>
-
-      <div
-        style="
-          font-size:32px;
-          font-weight:bold;
-          letter-spacing:8px;
-          padding:20px;
-          text-align:center;
-          background:#f3f4f6;
-          border-radius:10px;
-          margin:20px 0;
-        "
-      >
-        ${otp}
-      </div>
-
-      <p>
-        This OTP will expire in <strong>10 minutes</strong>.
-      </p>
-
-      <p>
-        If you did not request this ${
-          isPasswordReset ? "password reset" : "verification"
-        }, please ignore this email.
-      </p>
-
-      <p>
-        Regards,<br />
-        Societal Innovation Team
-      </p>
-    </div>
-  `;
+  const actionText = isPasswordReset
+    ? "password reset"
+    : "email verification";
 
   try {
-    const response = await fetch(RESEND_API_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${env.resend.apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: env.resend.from,
-        to: [email],
-        subject,
-        html,
-      }),
+    const info = await transporter.sendMail({
+      from: env.smtp.from || env.smtp.user,
+      to: email,
+      subject,
+
+      text: `Hello ${name},
+
+${introText}
+
+Your OTP is: ${otp}
+
+This OTP will expire in 10 minutes.
+
+If you did not request this ${actionText}, please ignore this email.
+
+Regards,
+Societal Innovation Team`,
+
+      html: `
+        <div style="
+          font-family: Arial, sans-serif;
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 24px;
+          color: #222;
+        ">
+          <h2>Societal Innovation</h2>
+
+          <p>Hello ${name},</p>
+
+          <p>${introText}</p>
+
+          <div style="
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            background: #f3f4f6;
+            border-radius: 10px;
+          ">
+            ${otp}
+          </div>
+
+          <p>
+            This OTP will expire in
+            <strong>10 minutes</strong>.
+          </p>
+
+          <p>
+            If you did not request this ${actionText},
+            please ignore this email.
+          </p>
+
+          <p>
+            Regards,<br />
+            Societal Innovation Team
+          </p>
+        </div>
+      `,
     });
 
-    const data = await response.json();
+    console.log(
+      `Email sent successfully to ${email}. Message ID: ${info.messageId}`,
+    );
 
-    if (!response.ok) {
-      console.error("Resend API error:", data);
-
-      const error = new Error(
-        data?.message || "Resend email service failed.",
-      );
-
-      error.statusCode = 503;
-      error.publicMessage =
-        "The email service is temporarily unavailable. Please try again shortly.";
-
-      throw error;
-    }
-
-    console.log("Email sent successfully through Resend:", data?.id);
-
-    return data;
+    return info;
   } catch (error) {
     console.error("Email sending failed:", error);
 
-    if (!error.statusCode) {
-      error.statusCode = 503;
-      error.publicMessage =
-        "The email service is temporarily unavailable. Please try again shortly.";
-    }
+    error.statusCode = 503;
+    error.publicMessage =
+      "The email service is temporarily unavailable. Please try again shortly.";
 
     throw error;
   }

@@ -46,26 +46,21 @@ export default {
 smtp: {
   host: process.env.SMTP_HOST || "",
   port: Number(process.env.SMTP_PORT) || 587,
-
   secure:
     String(process.env.SMTP_SECURE || "").toLowerCase() === "true",
-
-  family: Number(process.env.SMTP_FAMILY) || 4,
-
   user: process.env.SMTP_USER || "",
   pass: process.env.SMTP_PASS || "",
   from: process.env.SMTP_FROM || "",
 
   connectionTimeout:
-    Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) || 20000,
+    Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) || 30000,
 
   greetingTimeout:
-    Number(process.env.SMTP_GREETING_TIMEOUT_MS) || 20000,
+    Number(process.env.SMTP_GREETING_TIMEOUT_MS) || 30000,
 
   socketTimeout:
     Number(process.env.SMTP_SOCKET_TIMEOUT_MS) || 30000,
 },
-
   ai: {
     provider: String(
       process.env.AI_PROVIDER || "gemini",
@@ -100,12 +95,7 @@ smtp: {
       process.env.CLOUDINARY_API_SECRET || "",
   },
 
-  resend: {
-  apiKey: process.env.RESEND_API_KEY || "",
-  from:
-    process.env.RESEND_FROM_EMAIL ||
-    "onboarding@resend.dev",
-},
+
 
 
 };
