@@ -104,7 +104,7 @@ smtp: {
   apiKey: process.env.RESEND_API_KEY || "",
   from:
     process.env.RESEND_FROM_EMAIL ||
-    "societalinnovation009@gmail.com",
+    "onboarding@resend.dev",
 },
 
 
