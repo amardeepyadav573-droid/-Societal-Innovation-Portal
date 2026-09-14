@@ -13,11 +13,16 @@ for (const key of required) {
 }
 
 const clientUrl = String(process.env.CLIENT_URL || "")
-  .trim();
+  .split(",")
+  .map((url) => url.trim())
+  .filter(Boolean)
+  .join(",");
 
 if (nodeEnv === "production" && !clientUrl) {
   throw new Error("CLIENT_URL is required in production.");
 }
+
+const smtpPort = Number(process.env.SMTP_PORT) || 587;
 
 export default {
   nodeEnv,
@@ -39,30 +44,29 @@ export default {
   ).toLowerCase(),
 
   smtp: {
-    host: process.env.SMTP_HOST || "",
+    host: String(process.env.SMTP_HOST || "").trim(),
 
-    port: Number(process.env.SMTP_PORT) || 587,
+    port: smtpPort,
 
     secure:
       String(process.env.SMTP_SECURE || "").toLowerCase() === "true",
 
-    user: process.env.SMTP_USER || "",
+    user: String(process.env.SMTP_USER || "").trim(),
 
-    pass: process.env.SMTP_PASS || "",
+    pass: String(process.env.SMTP_PASS || "").trim(),
 
-    from: process.env.SMTP_FROM || "",
+    from:
+      String(process.env.SMTP_FROM || "").trim() ||
+      String(process.env.SMTP_USER || "").trim(),
 
     connectionTimeout:
-      Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) || 10000,
+      Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) || 30000,
 
     greetingTimeout:
-      Number(process.env.SMTP_GREETING_TIMEOUT_MS) || 10000,
+      Number(process.env.SMTP_GREETING_TIMEOUT_MS) || 30000,
 
     socketTimeout:
-      Number(process.env.SMTP_SOCKET_TIMEOUT_MS) || 15000,
-
-    // Force IPv4 on Render to avoid SMTP IPv6 connection errors.
-    family: Number(process.env.SMTP_FAMILY) || 4,
+      Number(process.env.SMTP_SOCKET_TIMEOUT_MS) || 30000,
   },
 
   ai: {
