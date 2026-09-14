@@ -13,16 +13,12 @@ for (const key of required) {
 }
 
 const clientUrl = String(process.env.CLIENT_URL || "")
-  .split(",")
-  .map((url) => url.trim())
-  .filter(Boolean)
-  .join(",");
+  .trim()
+  .replace(/\/$/, "");
 
 if (nodeEnv === "production" && !clientUrl) {
   throw new Error("CLIENT_URL is required in production.");
 }
-
-const smtpPort = Number(process.env.SMTP_PORT) || 587;
 
 export default {
   nodeEnv,
@@ -43,31 +39,31 @@ export default {
     process.env.STORAGE_PROVIDER || "mongodb",
   ).toLowerCase(),
 
-smtp: {
-  host: process.env.SMTP_HOST || "",
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure:
-    String(process.env.SMTP_SECURE || "").toLowerCase() === "true",
-  user: process.env.SMTP_USER || "",
-  pass: process.env.SMTP_PASS || "",
-  from: process.env.SMTP_FROM || "",
+  /*
+   * Brevo HTTP API
+   *
+   * SMTP is intentionally not used here.
+   */
+  brevo: {
+    apiKey: String(process.env.BREVO_API_KEY || "").trim(),
 
-  connectionTimeout:
-    Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) || 30000,
+    fromEmail: String(
+      process.env.BREVO_FROM_EMAIL || "",
+    ).trim(),
 
-  greetingTimeout:
-    Number(process.env.SMTP_GREETING_TIMEOUT_MS) || 30000,
+    fromName: String(
+      process.env.BREVO_FROM_NAME || "Societal Innovation",
+    ).trim(),
+  },
 
-  socketTimeout:
-    Number(process.env.SMTP_SOCKET_TIMEOUT_MS) || 30000,
-},
   ai: {
     provider: String(
       process.env.AI_PROVIDER || "gemini",
     ).toLowerCase(),
 
     model:
-      process.env.AI_MODEL || "gemini-3.6-flash",
+      process.env.AI_MODEL ||
+      "gemini-3.6-flash",
 
     apiKey:
       process.env.AI_API_KEY ||
@@ -94,8 +90,4 @@ smtp: {
     apiSecret:
       process.env.CLOUDINARY_API_SECRET || "",
   },
-
-
-
-
 };

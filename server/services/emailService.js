@@ -1,144 +1,273 @@
-import nodemailer from "nodemailer";
+import axios from "axios";
 import env from "../config/env.js";
 
-let transporter = null;
+const BREVO_API_URL = "https://api.brevo.com/v3/smtp/email";
 
-if (
-  env.smtp.host &&
-  env.smtp.port &&
-  env.smtp.user &&
-  env.smtp.pass
-) {
-  transporter = nodemailer.createTransport({
-    host: env.smtp.host,
-    port: Number(env.smtp.port),
-    secure: Boolean(env.smtp.secure),
+/**
+ * Check whether Brevo HTTP API is configured.
+ */
+const isBrevoConfigured = () => {
+  return Boolean(
+    env.brevo?.apiKey &&
+      env.brevo?.fromEmail,
+  );
+};
 
-    auth: {
-      user: env.smtp.user,
-      pass: env.smtp.pass,
-    },
-
-    connectionTimeout: Number(env.smtp.connectionTimeout) || 30000,
-    greetingTimeout: Number(env.smtp.greetingTimeout) || 30000,
-    socketTimeout: Number(env.smtp.socketTimeout) || 30000,
-
-    pool: true,
-    maxConnections: 3,
-    maxMessages: 100,
-  });
-}
-
-export const verifyEmailTransport = async () => {
-  if (!transporter) {
-    throw new Error("SMTP is not configured.");
+/**
+ * Get common Brevo API configuration.
+ */
+const getBrevoConfig = () => {
+  if (!env.brevo?.apiKey) {
+    throw new Error(
+      "BREVO_API_KEY is not configured.",
+    );
   }
 
-  await transporter.verify();
+  if (!env.brevo?.fromEmail) {
+    throw new Error(
+      "BREVO_FROM_EMAIL is not configured.",
+    );
+  }
+
+  return {
+    headers: {
+      accept: "application/json",
+      "api-key": env.brevo.apiKey,
+      "content-type": "application/json",
+    },
+
+    timeout: 15000,
+  };
+};
+
+/**
+ * Verify Brevo email transport configuration.
+ *
+ * This does not use SMTP.
+ * It simply verifies that the required
+ * Brevo HTTP API environment variables exist.
+ */
+export const verifyEmailTransport = async () => {
+  if (!isBrevoConfigured()) {
+    if (env.isProduction) {
+      throw new Error(
+        "Brevo email service is not configured.",
+      );
+    }
+
+    console.warn(
+      "[DEV] Brevo email service is not configured.",
+    );
+
+    return false;
+  }
 
   return true;
 };
 
+/**
+ * Send registration/password-reset OTP using
+ * Brevo Transactional Email HTTP API.
+ */
 export const sendVerificationOtp = async ({
   email,
   otp,
   name = "User",
   purpose = "REGISTRATION",
 }) => {
-  if (!transporter) {
-    throw new Error("SMTP is not configured.");
+  if (!email) {
+    throw new Error(
+      "Recipient email is required.",
+    );
   }
 
-  const isPasswordReset = purpose === "PASSWORD_RESET";
+  if (!otp) {
+    throw new Error(
+      "OTP is required.",
+    );
+  }
+
+  const isPasswordReset =
+    purpose === "PASSWORD_RESET";
 
   const subject = isPasswordReset
     ? "Societal Innovation Portal - Password Reset OTP"
     : "Societal Innovation Portal - Email Verification OTP";
 
-  const introText = isPasswordReset
+  const message = isPasswordReset
     ? "Use the following OTP to reset your Societal Innovation account password:"
     : "Use the following OTP to verify your email:";
 
-  const actionText = isPasswordReset
-    ? "password reset"
-    : "email verification";
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${subject}</title>
+</head>
 
-  try {
-    const info = await transporter.sendMail({
-      from: env.smtp.from || env.smtp.user,
-      to: email,
-      subject,
+<body
+  style="
+    margin:0;
+    padding:0;
+    background:#f4f7fb;
+    font-family:Arial,Helvetica,sans-serif;
+  "
+>
+  <div
+    style="
+      max-width:600px;
+      margin:30px auto;
+      background:#ffffff;
+      border-radius:12px;
+      padding:30px;
+      box-sizing:border-box;
+    "
+  >
+    <h2
+      style="
+        margin-top:0;
+        color:#155e91;
+      "
+    >
+      Societal Innovation Portal
+    </h2>
 
-      text: `Hello ${name},
+    <p style="font-size:16px;color:#333;">
+      Hello ${name},
+    </p>
 
-${introText}
+    <p style="font-size:16px;color:#333;">
+      ${message}
+    </p>
+
+    <div
+      style="
+        margin:25px 0;
+        padding:20px;
+        text-align:center;
+        background:#f1f5f9;
+        border-radius:10px;
+      "
+    >
+      <div
+        style="
+          font-size:32px;
+          font-weight:bold;
+          letter-spacing:8px;
+          color:#155e91;
+        "
+      >
+        ${otp}
+      </div>
+    </div>
+
+    <p style="font-size:15px;color:#555;">
+      This OTP will expire in
+      <strong>10 minutes</strong>.
+    </p>
+
+    <p style="font-size:15px;color:#555;">
+      If you did not request this
+      ${isPasswordReset ? "password reset" : "verification"},
+      please ignore this email.
+    </p>
+
+    <p
+      style="
+        margin-top:30px;
+        font-size:15px;
+        color:#555;
+      "
+    >
+      Regards,<br />
+      <strong>Societal Innovation Team</strong>
+    </p>
+  </div>
+</body>
+</html>
+`;
+
+  const textContent = `
+Hello ${name},
+
+${message}
 
 Your OTP is: ${otp}
 
 This OTP will expire in 10 minutes.
 
-If you did not request this ${actionText}, please ignore this email.
+If you did not request this ${
+    isPasswordReset
+      ? "password reset"
+      : "verification"
+  }, please ignore this email.
 
 Regards,
-Societal Innovation Team`,
+Societal Innovation Team
+`;
 
-      html: `
-        <div style="
-          font-family: Arial, sans-serif;
-          max-width: 600px;
-          margin: 0 auto;
-          padding: 24px;
-          color: #222;
-        ">
-          <h2>Societal Innovation</h2>
+  const payload = {
+    sender: {
+      name:
+        env.brevo.fromName ||
+        "Societal Innovation",
 
-          <p>Hello ${name},</p>
+      email: env.brevo.fromEmail,
+    },
 
-          <p>${introText}</p>
+    to: [
+      {
+        email,
+        name,
+      },
+    ],
 
-          <div style="
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            background: #f3f4f6;
-            border-radius: 10px;
-          ">
-            ${otp}
-          </div>
+    subject,
 
-          <p>
-            This OTP will expire in
-            <strong>10 minutes</strong>.
-          </p>
+    htmlContent,
 
-          <p>
-            If you did not request this ${actionText},
-            please ignore this email.
-          </p>
+    textContent,
+  };
 
-          <p>
-            Regards,<br />
-            Societal Innovation Team
-          </p>
-        </div>
-      `,
-    });
-
+  try {
     console.log(
-      `Email sent successfully to ${email}. Message ID: ${info.messageId}`,
+      `[BREVO] Sending OTP email to ${email}...`,
     );
 
-    return info;
-  } catch (error) {
-    console.error("Email sending failed:", error);
+    const response = await axios.post(
+      BREVO_API_URL,
+      payload,
+      getBrevoConfig(),
+    );
 
-    error.statusCode = 503;
-    error.publicMessage =
+    console.log(
+      `[BREVO] OTP email sent successfully to ${email}`,
+    );
+
+    return response.data;
+  } catch (error) {
+    const brevoError =
+      error?.response?.data;
+
+    console.error(
+      "[BREVO] Email sending failed:",
+      brevoError || error.message,
+    );
+
+    const message =
+      brevoError?.message ||
+      error?.message ||
       "The email service is temporarily unavailable. Please try again shortly.";
 
-    throw error;
+    const serviceError = new Error(message);
+
+    serviceError.statusCode = 503;
+
+    serviceError.publicMessage =
+      "The email service is temporarily unavailable. Please try again shortly.";
+
+    throw serviceError;
   }
 };
