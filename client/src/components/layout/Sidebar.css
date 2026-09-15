@@ -4,45 +4,41 @@
 
 .sidebar-layer {
   position: fixed;
-
   inset: 0;
-
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   z-index: 9999;
-
   visibility: hidden;
-
   pointer-events: none;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .sidebar-layer-open {
   visibility: visible;
-
   pointer-events: auto;
 }
 
+
 /* =========================================================
-   TRANSPARENT OUTSIDE AREA
+   TRANSPARENT OUTSIDE AREA / OVERLAY
    ========================================================= */
 
 .sidebar-overlay {
   position: absolute;
-
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   margin: 0;
   padding: 0;
-
   border: 0;
-
-  background: transparent;
-
+  background: rgba(15, 23, 42, 0.18);
   cursor: default;
-
   pointer-events: auto;
+  box-sizing: border-box;
 }
+
 
 /* =========================================================
    SIDEBAR
@@ -50,44 +46,41 @@
 
 .sidebar {
   position: absolute;
-
   top: 0;
   left: 0;
   bottom: 0;
 
-  width: 270px;
-
-  max-width: 88vw;
+  width: 280px;
+  max-width: calc(100vw - 24px);
 
   height: 100vh;
   height: 100dvh;
 
   display: flex;
-
   flex-direction: column;
 
   overflow: hidden;
 
-  background: var(--surface, var(--surface));
+  box-sizing: border-box;
 
-  border-right: 1px solid var(--border, var(--border));
+  background: var(--surface, #ffffff);
+  border-right: 1px solid var(--border, #e5e7eb);
 
-  box-shadow:
-    12px 0 35px rgba(15, 23, 42, 0.16);
+  box-shadow: 12px 0 35px rgba(15, 23, 42, 0.16);
 
-  transform: translateX(-105%);
+  transform: translate3d(-105%, 0, 0);
 
-  transition:
-    transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
 
   pointer-events: auto;
-
   isolation: isolate;
+  contain: layout paint;
 }
 
 .sidebar-layer-open .sidebar {
-  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
 }
+
 
 /* =========================================================
    HEADER
@@ -95,32 +88,34 @@
 
 .sidebar-header {
   flex: 0 0 68px;
-
   min-height: 68px;
+
+  width: 100%;
+  box-sizing: border-box;
 
   padding: 0 14px 0 16px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
 
   gap: 10px;
 
-  border-bottom: 1px solid var(--border, var(--border));
+  border-bottom: 1px solid var(--border, #e5e7eb);
 
-  background: var(--surface, var(--surface));
+  background: var(--surface, #ffffff);
 }
 
 .sidebar-brand {
   min-width: 0;
+  max-width: 100%;
 
   display: flex;
-
   align-items: center;
 
   gap: 10px;
+
+  overflow: hidden;
 }
 
 .sidebar-brand-mark {
@@ -130,52 +125,50 @@
   flex: 0 0 38px;
 
   display: grid;
-
   place-items: center;
 
   border-radius: 11px;
 
-  background:  #f3efed;
-
-  color: var(--surface);
+  background: #f3efed;
+  color: var(--primary, #145b8c);
 
   font-size: 13px;
-
   font-weight: 800;
 }
 
 .sidebar-brand-text {
   min-width: 0;
+  max-width: 170px;
 
   display: flex;
-
   flex-direction: column;
+
+  overflow: hidden;
 }
 
 .sidebar-brand-text strong,
 .sidebar-brand-text span {
+  display: block;
+
   overflow: hidden;
 
   white-space: nowrap;
-
   text-overflow: ellipsis;
 }
 
 .sidebar-brand-text strong {
-  color: var(--text);
-
+  color: var(--text, #111827);
   font-size: 13px;
-
   line-height: 1.2;
 }
 
 .sidebar-brand-text span {
   margin-top: 2px;
 
-  color: var(--muted);
-
+  color: var(--muted, #6b7280);
   font-size: 10px;
 }
+
 
 /* =========================================================
    CLOSE BUTTON
@@ -188,33 +181,30 @@
   flex: 0 0 34px;
 
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
 
-  border: 1px solid var(--border, var(--border));
-
+  border: 1px solid var(--border, #e5e7eb);
   border-radius: 9px;
 
-  background: var(--surface-2, var(--surface-2));
-
-  color: var(--muted);
+  background: var(--surface-2, #f8fafc);
+  color: var(--muted, #6b7280);
 
   cursor: pointer;
 
   position: relative;
-
   z-index: 10;
 
   pointer-events: auto;
+
+  box-sizing: border-box;
 }
 
 .sidebar .mobile-close:hover {
-  color: var(--text);
-
-  background: var(--surface, var(--surface));
+  color: var(--text, #111827);
+  background: var(--surface, #ffffff);
 }
+
 
 /* =========================================================
    USER
@@ -223,21 +213,23 @@
 .sidebar-user {
   flex: 0 0 auto;
 
-  margin: 14px 14px 8px;
+  width: calc(100% - 28px);
+  box-sizing: border-box;
 
+  margin: 14px 14px 8px;
   padding: 11px;
 
   display: flex;
-
   align-items: center;
 
   gap: 10px;
 
-  border: 1px solid var(--border, var(--border));
-
+  border: 1px solid var(--border, #e5e7eb);
   border-radius: 13px;
 
-  background: var(--surface-2, var(--surface));
+  background: var(--surface-2, #f8fafc);
+
+  overflow: hidden;
 }
 
 .sidebar-user-avatar {
@@ -247,7 +239,6 @@
   flex: 0 0 38px;
 
   display: grid;
-
   place-items: center;
 
   overflow: hidden;
@@ -255,11 +246,9 @@
   border-radius: 50%;
 
   background: var(--primary, #145b8c);
-
-  color: var(--surface);
+  color: var(--surface, #ffffff);
 
   font-size: 14px;
-
   font-weight: 800;
 }
 
@@ -274,10 +263,12 @@
 
 .sidebar-user-info {
   min-width: 0;
+  max-width: calc(100% - 48px);
 
   display: flex;
-
   flex-direction: column;
+
+  overflow: hidden;
 }
 
 .sidebar-user-info strong,
@@ -287,35 +278,34 @@
   overflow: hidden;
 
   white-space: nowrap;
-
   text-overflow: ellipsis;
 }
 
 .sidebar-user-info strong {
-  color: var(--text);
-
+  color: var(--text, #111827);
   font-size: 12px;
 }
 
 .sidebar-user-info span {
   margin-top: 3px;
 
-  color: var(--muted);
-
+  color: var(--muted, #6b7280);
   font-size: 10px;
 }
 
+
 /* =========================================================
-   NAVIGATION
+   NAVIGATION SECTION
    ========================================================= */
 
 .sidebar-section {
   flex: 1 1 auto;
-
   min-height: 0;
 
-  display: flex;
+  width: 100%;
+  box-sizing: border-box;
 
+  display: flex;
   flex-direction: column;
 
   padding: 8px 10px 10px;
@@ -328,10 +318,9 @@
 
   padding: 8px 10px 7px;
 
-  color: var(--muted);
+  color: var(--muted, #6b7280);
 
   font-size: 9px;
-
   font-weight: 800;
 
   letter-spacing: 0.14em;
@@ -339,17 +328,21 @@
 
 .sidebar-nav {
   flex: 1 1 auto;
-
   min-height: 0;
 
-  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
 
+  overflow-y: auto;
   overflow-x: hidden;
 
   padding-right: 2px;
 
   scrollbar-width: thin;
+
+  -webkit-overflow-scrolling: touch;
 }
+
 
 /* =========================================================
    LINKS
@@ -357,33 +350,26 @@
 
 .sidebar-link {
   width: 100%;
-
   min-height: 42px;
 
   margin: 2px 0;
-
   padding: 9px 11px;
 
   display: flex;
-
   align-items: center;
 
   gap: 11px;
 
   border: 0;
-
   border-radius: 10px;
 
   background: transparent;
-
-  color: var(--muted);
+  color: var(--muted, #6b7280);
 
   text-decoration: none;
 
   font-family: inherit;
-
   font-size: 12px;
-
   font-weight: 700;
 
   text-align: left;
@@ -393,10 +379,11 @@
   pointer-events: auto;
 
   position: relative;
-
   z-index: 2;
 
   box-sizing: border-box;
+
+  overflow: hidden;
 
   transition:
     background 160ms ease,
@@ -406,7 +393,6 @@
 
 .sidebar-link svg {
   flex: 0 0 auto;
-
   pointer-events: none;
 }
 
@@ -416,31 +402,29 @@
   overflow: hidden;
 
   white-space: nowrap;
-
   text-overflow: ellipsis;
 
   pointer-events: none;
 }
 
 .sidebar-link:hover {
-  color: var(--text);
-
-  background: var(--surface-2, var(--surface-2));
+  color: var(--text, #111827);
+  background: var(--surface-2, #f8fafc);
 }
 
 .sidebar-link.active {
-  color: var(--primary);
-
+  color: var(--primary, #145b8c);
   background: var(--accent-soft, #eaf5f9);
 }
 
 .sidebar-link.active svg {
-  color: var(--primary);
+  color: var(--primary, #145b8c);
 }
 
 .sidebar-link:active {
   transform: translateY(1px);
 }
+
 
 /* =========================================================
    BOTTOM
@@ -449,18 +433,21 @@
 .sidebar-bottom {
   flex: 0 0 auto;
 
+  width: 100%;
+  box-sizing: border-box;
+
   padding: 10px 10px 12px;
 
-  border-top: 1px solid var(--border, var(--border));
+  border-top: 1px solid var(--border, #e5e7eb);
 
-  background: var(--surface, var(--surface));
+  background: var(--surface, #ffffff);
 }
 
 .logout-link:hover {
   color: var(--danger, #dc2626);
-
-  background: var(--danger-soft);
+  background: var(--danger-soft, #fef2f2);
 }
+
 
 /* =========================================================
    MOBILE
@@ -468,21 +455,93 @@
 
 @media (max-width: 900px) {
   .sidebar {
-    width: min(300px, 88vw);
+    width: 280px;
+    max-width: calc(100vw - 20px);
   }
 
   .sidebar-header {
     flex-basis: 64px;
-
     min-height: 64px;
   }
 }
 
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
 @media (max-width: 600px) {
   .sidebar {
-    width: min(300px, 88vw);
+    width: min(290px, calc(100vw - 20px));
+    max-width: calc(100vw - 20px);
+
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.2);
+  }
+
+  .sidebar-header {
+    padding-left: 14px;
+    padding-right: 12px;
+  }
+
+  .sidebar-brand-text {
+    max-width: 145px;
+  }
+
+  .sidebar-user {
+    width: calc(100% - 24px);
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .sidebar-section {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .sidebar-bottom {
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .sidebar {
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px);
+  }
+
+  .sidebar-brand-text {
+    max-width: 125px;
+  }
+
+  .sidebar-link {
+    min-height: 40px;
+    padding: 8px 10px;
+  }
+}
+
+
+/* =========================================================
+   GLOBAL MOBILE SAFETY
+   ========================================================= */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 
 /* =========================================================
    ACCESSIBILITY

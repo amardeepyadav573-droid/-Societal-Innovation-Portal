@@ -1,31 +1,33 @@
 /* =========================================================
    DASHBOARD LAYOUT
    Sidebar = overlay drawer
-   Dashboard = always 100% width
+   Main content = always full width
    ========================================================= */
 
 .dashboard-shell {
   --navbar-height: 68px;
 
   position: relative;
-
   width: 100%;
+  min-width: 0;
   min-height: 100vh;
 
   background: var(--bg);
-
   overflow-x: hidden;
 }
 
+
 /* =========================================================
    DASHBOARD MAIN
-   NEVER reserve space for sidebar
+   Sidebar ke liye koi space reserve nahi hoga
    ========================================================= */
 
 .dashboard-main {
   position: relative;
 
   width: 100% !important;
+  max-width: none;
+
   min-width: 0;
   min-height: 100vh;
 
@@ -35,16 +37,22 @@
   padding-left: 30px !important;
   padding-right: 30px !important;
 
+  box-sizing: border-box;
   overflow-x: hidden;
 }
 
-/* OPEN/CLOSED — same dimensions */
+
+/* =========================================================
+   SIDEBAR OPEN / CLOSED
+   Main layout same rahega
+   ========================================================= */
+
 .dashboard-shell.sidebar-open .dashboard-main,
 .dashboard-shell.sidebar-closed .dashboard-main {
   width: 100% !important;
   margin-left: 0 !important;
-  padding-left: 0 !important;
 }
+
 
 /* =========================================================
    PAGE CONTAINER
@@ -55,17 +63,19 @@
 .dashboard-main .page-container,
 .dashboard-main .dashboard-page {
   width: 100% !important;
-
   max-width: var(--page-max, 1440px) !important;
+
   min-width: 0 !important;
 
-  margin: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 
   box-sizing: border-box;
 }
 
+
 /* =========================================================
-   FOUR DASHBOARDS
+   DASHBOARDS
    ========================================================= */
 
 .dashboard-main .citizen-dashboard,
@@ -73,34 +83,33 @@
 .dashboard-main .industry-dashboard,
 .dashboard-main .government-dashboard {
   width: 100% !important;
+
   max-width: none !important;
   min-width: 0 !important;
 
   margin-left: 0 !important;
   margin-right: 0 !important;
+
+  box-sizing: border-box;
 }
+
 
 /* =========================================================
-   IMPORTANT:
-   REMOVE OLD GLOBAL NAVBAR LEFT SPACE
+   NAVBAR
+   Sidebar open hone par navbar shift nahi hoga
    ========================================================= */
 
-.dashboard-shell .navbar {
-  padding-left: 16px !important;
-  padding-right: 16px !important;
-}
-
-/*
-   IMPORTANT:
-   DO NOT add sidebar width to navbar.
-   Navbar stays in the same position whether
-   sidebar is open or closed.
-*/
-
+.dashboard-shell .navbar,
 .dashboard-shell.sidebar-open .navbar,
 .dashboard-shell.sidebar-closed .navbar {
+  width: 100% !important;
+
   padding-left: 16px !important;
+  padding-right: 16px !important;
+
+  box-sizing: border-box;
 }
+
 
 /* =========================================================
    TABLE RESPONSIVENESS
@@ -111,31 +120,148 @@
 .dashboard-main .dashboard-table-wrap {
   width: 100%;
   max-width: 100%;
+
   overflow-x: auto;
+  overflow-y: visible;
+
+  -webkit-overflow-scrolling: touch;
 }
+
+
+/* =========================================================
+   PREVENT CONTENT FROM BREAKING MOBILE WIDTH
+   ========================================================= */
+
+.dashboard-main img,
+.dashboard-main video,
+.dashboard-main canvas {
+  max-width: 100%;
+  height: auto;
+}
+
 
 /* =========================================================
    MOBILE
    ========================================================= */
 
 @media (max-width: 900px) {
+
   .dashboard-shell {
     --navbar-height: 64px;
+
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   .dashboard-main {
     width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0;
+
     margin: 0 !important;
 
-    padding-top: 64px;
-    padding-left: 18px !important;
-    padding-right: 18px !important;
+    padding-top: 64px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+
+    box-sizing: border-box;
+
+    overflow-x: hidden;
   }
 
+
+  /* Navbar full screen */
   .dashboard-shell .navbar,
   .dashboard-shell.sidebar-open .navbar,
   .dashboard-shell.sidebar-closed .navbar {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
+    width: 100% !important;
+
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+
+    box-sizing: border-box;
+  }
+
+
+  /* Page container */
+  .dashboard-main > .page-container,
+  .dashboard-main > .dashboard-page,
+  .dashboard-main .page-container,
+  .dashboard-main .dashboard-page {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    box-sizing: border-box;
+  }
+
+
+  /* Dashboard cards/content */
+  .dashboard-main .citizen-dashboard,
+  .dashboard-main .university-dashboard,
+  .dashboard-main .industry-dashboard,
+  .dashboard-main .government-dashboard {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    box-sizing: border-box;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .dashboard-main {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .dashboard-shell .navbar {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .dashboard-main {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .dashboard-shell .navbar {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .dashboard-shell,
+  .dashboard-main {
+    scroll-behavior: auto;
   }
 }
