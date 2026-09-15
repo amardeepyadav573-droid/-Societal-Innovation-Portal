@@ -583,3 +583,16 @@ body {
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch;
 }
+.sidebar-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100dvh;
+}

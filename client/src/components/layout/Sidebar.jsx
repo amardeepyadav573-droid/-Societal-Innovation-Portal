@@ -12,13 +12,15 @@ import {
   MessageSquare,
   Settings,
   Users,
-  X
+  X,
 } from "lucide-react";
 
 import {
   NavLink,
-  useNavigate
+  useNavigate,
 } from "react-router-dom";
+
+import { createPortal } from "react-dom";
 
 import useAuth from "../../hooks/useAuth";
 import { resolveMediaUrl } from "../../utils/media";
@@ -37,7 +39,7 @@ export default function Sidebar({ open, onClose }) {
     { to: "/citizen/profile", label: "Citizen Profile", icon: IdCard },
     { to: "/citizen/submit", label: "Submit Challenge", icon: FilePlus2 },
     { to: "/citizen/problems", label: "My Challenges", icon: ClipboardList },
-    { to: "/projects", label: "Projects", icon: FolderKanban }
+    { to: "/projects", label: "Projects", icon: FolderKanban },
   ];
 
   const universityLinks = [
@@ -46,24 +48,52 @@ export default function Sidebar({ open, onClose }) {
     { to: "/university/problems", label: "Assigned Challenges", icon: ClipboardList },
     { to: "/university/teams", label: "Research Teams", icon: Users },
     { to: "/university/proposals", label: "Proposals", icon: Lightbulb },
-    { to: "/university/collaborations", label: "Industry Collaborations", icon: Users },
-    { to: "/projects", label: "Projects", icon: FolderKanban }
+    {
+      to: "/university/collaborations",
+      label: "Industry Collaborations",
+      icon: Users,
+    },
+    { to: "/projects", label: "Projects", icon: FolderKanban },
   ];
 
   const industryLinks = [
     { to: "/industry", label: "Dashboard", icon: Home },
-    { to: "/industry/profile", label: "Industry / Startup Profile", icon: IdCard },
-    { to: "/industry/opportunities", label: "Opportunities", icon: BriefcaseBusiness },
-    { to: "/industry/collaborations", label: "Collaborations", icon: Users },
-    { to: "/projects", label: "Projects", icon: FolderKanban }
+    {
+      to: "/industry/profile",
+      label: "Industry / Startup Profile",
+      icon: IdCard,
+    },
+    {
+      to: "/industry/opportunities",
+      label: "Opportunities",
+      icon: BriefcaseBusiness,
+    },
+    {
+      to: "/industry/collaborations",
+      label: "Collaborations",
+      icon: Users,
+    },
+    { to: "/projects", label: "Projects", icon: FolderKanban },
   ];
 
   const governmentLinks = [
     { to: "/government", label: "Dashboard", icon: Home },
-    { to: "/government/challenges", label: "Challenges", icon: ClipboardList },
-    { to: "/government/universities", label: "University Validation", icon: Building2 },
-    { to: "/government/analytics", label: "Analytics", icon: BarChart3 },
-    { to: "/projects", label: "Projects", icon: FolderKanban }
+    {
+      to: "/government/challenges",
+      label: "Challenges",
+      icon: ClipboardList,
+    },
+    {
+      to: "/government/universities",
+      label: "University Validation",
+      icon: Building2,
+    },
+    {
+      to: "/government/analytics",
+      label: "Analytics",
+      icon: BarChart3,
+    },
+    { to: "/projects", label: "Projects", icon: FolderKanban },
   ];
 
   const roleLinks = {
@@ -74,7 +104,7 @@ export default function Sidebar({ open, onClose }) {
     INDUSTRY: industryLinks,
     MENTOR: industryLinks,
     GOVERNMENT: governmentLinks,
-    ADMIN: governmentLinks
+    ADMIN: governmentLinks,
   };
 
   const links = roleLinks[role] || citizenLinks;
@@ -92,7 +122,7 @@ export default function Sidebar({ open, onClose }) {
     }
   };
 
-  return (
+  const sidebarContent = (
     <div
       className={`sidebar-layer ${
         open ? "sidebar-layer-open" : ""
@@ -120,7 +150,10 @@ export default function Sidebar({ open, onClose }) {
         <div className="sidebar-header">
           <div className="sidebar-brand">
             <div className="sidebar-brand-mark">
-              <img src={sipLogo} alt="Societal Innovation Portal" />
+              <img
+                src={sipLogo}
+                alt="Societal Innovation Portal"
+              />
             </div>
 
             <div className="sidebar-brand-text">
@@ -242,6 +275,11 @@ export default function Sidebar({ open, onClose }) {
       </aside>
     </div>
   );
+
+  return createPortal(
+    sidebarContent,
+    document.body
+  );
 }
 
 function formatRole(role) {
@@ -253,7 +291,7 @@ function formatRole(role) {
     INDUSTRY: "Industry / Startup",
     MENTOR: "Industry Mentor",
     GOVERNMENT: "Government",
-    ADMIN: "Administrator"
+    ADMIN: "Administrator",
   };
 
   return labels[role] || "Member";
