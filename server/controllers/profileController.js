@@ -18,36 +18,46 @@ const uploadProfileImage = async (file, folder) => {
     env.cloudinary.apiKey &&
     env.cloudinary.apiSecret;
 
-  if (!configured && env.isProduction) {
-    await fs.unlink(file.path).catch(() => {});
-    const error = new Error("Persistent image storage is not configured.");
+  if (!configured) {
+    const error = new Error("Cloudinary is not configured.");
     error.statusCode = 503;
     error.publicMessage =
       "Profile image storage is temporarily unavailable. Please try again later.";
     throw error;
   }
 
-  if (configured) {
-    try {
-      const result = await cloudinary.uploader.upload(file.path, {
-        folder,
-        resource_type: "image",
-        overwrite: false,
-      });
-      await fs.unlink(file.path).catch(() => {});
-      return result.secure_url;
-    } catch (cloudinaryError) {
-      await fs.unlink(file.path).catch(() => {});
-      const error = new Error("Cloudinary upload failed.");
-      error.statusCode = 503;
-      error.publicMessage =
-        "Profile image storage is temporarily unavailable. Please try again later.";
-      error.cause = cloudinaryError;
-      throw error;
-    }
-  }
+  try {
+    const result = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder,
+          resource_type: "image",
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+            return;
+          }
 
-  return `/uploads/profiles/${file.filename}`;
+          resolve(result);
+        }
+      );
+
+      uploadStream.end(file.buffer);
+    });
+
+    return result.secure_url;
+  } catch (cloudinaryError) {
+    console.error("Cloudinary profile upload error:", cloudinaryError);
+
+    const error = new Error("Cloudinary upload failed.");
+    error.statusCode = 503;
+    error.publicMessage =
+      "Profile image storage is temporarily unavailable. Please try again later.";
+    error.cause = cloudinaryError;
+
+    throw error;
+  }
 };
 
 const parseJSON = (value, fallback = null) => {
