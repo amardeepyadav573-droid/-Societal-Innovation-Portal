@@ -65,7 +65,7 @@ export default function Home() {
         if (active) {
           setStatsError(
             error?.response?.data?.message ||
-              "Live statistics are temporarily unavailable.",
+            "Live statistics are temporarily unavailable.",
           );
         }
       }
@@ -186,26 +186,11 @@ export default function Home() {
         </div>
 
         <div className="hero-visual">
-          <div className="innovation-orbit">
-            <div className="orbit-ring ring-one" />
-            <div className="orbit-ring ring-two" />
-
-            <div className="orbit-center">
-              <Lightbulb size={42} />
-              <span>INNOVATION</span>
-            </div>
-
-            <div className="orbit-node node-one">
-              <Users size={21} />
-            </div>
-
-            <div className="orbit-node node-two">
-              <Building2 size={21} />
-            </div>
-
-            <div className="orbit-node node-three">
-              <Rocket size={21} />
-            </div>
+          <div className="hero-logo-visual">
+            <img
+              src={sipLogo}
+              alt="Societal Innovation Portal"
+            />
           </div>
         </div>
       </section>
